@@ -10,7 +10,7 @@ class ClockProtocol(Protocol):
         """Set up a new instance."""
         ...
 
-    def advance(self, data: tuple) -> tuple[int, bytes]:
+    def advance(self, data: tuple) -> tuple:
         """Create an update that advances the clock to the given time."""
         ...
 

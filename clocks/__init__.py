@@ -1,1 +1,1 @@
-from scalar import ScalarClock
+from clocks.scalar import ScalarClock

@@ -14,11 +14,14 @@ class ScalarClock:
     @classmethod
     def setup(cls, options: dict = {}) -> ScalarClock:
         """Set up a new instance."""
+        assert type(options) is dict, 'options must be dict'
+
         uuid = options['uuid'] if 'uuid' in options else uuid1().bytes
         scalar = options['scalar'] if 'scalar' in options else 0
+
         return cls(uuid, scalar)
 
-    def advance(self, data: tuple = None) -> tuple[int, bytes]:
+    def advance(self, data: tuple = None) -> tuple[bytes, int]:
         """Create an update that advances the clock to the given time."""
         if data is not None:
             assert type(data) is tuple, 'data must be tuple[int] or None'

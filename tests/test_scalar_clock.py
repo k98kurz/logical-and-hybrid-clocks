@@ -79,7 +79,7 @@ class TestScalarClock(unittest.TestCase):
         clock.update(update)
         ts1 = clock.read()
 
-        assert ts0[0] == ts1[0], 'timestamps should be the same'
+        assert ts0 == ts1, 'timestamps should be the same'
 
     def test_ScalarClock_are_incomparable_functions(self):
         clock0, clock1 = ScalarClock(), ScalarClock()
