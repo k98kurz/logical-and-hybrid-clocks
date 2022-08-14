@@ -31,11 +31,11 @@ class TestScalarClock(unittest.TestCase):
     def test_ScalarClock_setup_accepts_uuid_and_scalar_fields_in_options(self):
         clock = ScalarClock.setup({'uuid': b'123', 'scalar': 55})
         assert clock.uuid == b'123', 'uuid must match that specified in setup'
-        assert clock.scalar == 55, 'uuid must match that specified in setup'
+        assert clock.scalar == 55, 'scalar must match that specified in setup'
 
         clock = ScalarClock.setup({'uuid': b'321', 'scalar': 99})
         assert clock.uuid == b'321', 'uuid must match that specified in setup'
-        assert clock.scalar == 99, 'uuid must match that specified in setup'
+        assert clock.scalar == 99, 'scalar must match that specified in setup'
 
     def test_ScalarClock_advance_returns_update_with_tuple_int_bytes_form(self):
         clock = ScalarClock()
