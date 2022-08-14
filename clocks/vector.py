@@ -1,0 +1,8 @@
+
+
+class VectorClock:
+    ...
+
+
+class MapClock:
+    ...
