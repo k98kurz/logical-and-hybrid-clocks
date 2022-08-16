@@ -1,4 +1,4 @@
-# Reverse Entropy Clock
+# Logical and Hybrid Clocks
 
 This module implements logical clocks as well as HybridTime and some
 experimental clock mechanisms.
