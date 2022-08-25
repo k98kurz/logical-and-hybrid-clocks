@@ -3,6 +3,37 @@ from typing import Any, Protocol, runtime_checkable
 
 
 @runtime_checkable
+class QueueProtocol(Protocol):
+    def __init__(self, size: int = 10, items: list = []) -> None:
+        """Initialize with size and items."""
+        ...
+
+    def read(self) -> list[Any]:
+        """Return the current values."""
+        ...
+
+    def get(self) -> Any:
+        """Return the first value."""
+        ...
+
+    def take(self) -> Any:
+        """Remove the first value and return it."""
+        ...
+
+    def remove(self, index: int, number: int = 1) -> None:
+        """Remove the number of elements in priority order."""
+        ...
+
+    def append(self, item: Any) -> None:
+        """Append to the list, kicking out oldest if necessary."""
+        ...
+
+    def extend(self, items: list[Any]) -> None:
+        """Extend the list with items, kicking out oldest elements if necessary."""
+        ...
+
+
+@runtime_checkable
 class ClockProtocol(Protocol):
     """Duck typed Protocol showing what a clock must do."""
     @classmethod

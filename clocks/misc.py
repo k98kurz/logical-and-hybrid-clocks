@@ -1,4 +1,6 @@
-from hashlib import sha256
+from dataclasses import dataclass, field
+from typing import Any, Optional
+
 
 # helper functions
 def xor(b1: bytes, b2: bytes) -> bytes:
@@ -21,7 +23,7 @@ def all_ascii(data: bytes) -> bool:
 
     return True
 
-def hexify(data) -> dict:
+def hexify(data) -> Any:
     """Convert bytes to hex."""
 
     if type(data) is bytes and not all_ascii(data):
@@ -44,3 +46,48 @@ def hexify(data) -> dict:
         return result
 
     return data
+
+
+# queue
+@dataclass
+class BoundedQueue:
+    size: int = field(default=10)
+    items: list = field(default_factory=list)
+
+    def read(self) -> list[Any]:
+        """Return the current values."""
+        return [*self.items]
+
+    def get(self) -> Optional[Any]:
+        """Return the first value."""
+        return self.items[0] if len(self.items) > 0 else None
+
+    def take(self) -> Any:
+        """Remove the first value and return it."""
+        if len(self.items) == 0:
+            return None
+        result, self.items = self.items[0], self.items[1:]
+        return result
+
+    def remove(self, index: int, number: int = 1) -> None:
+        """Remove the number of elements in priority order."""
+        assert type(index) is int, 'index must be int'
+        assert type(number) is int, 'number must be int'
+        assert len(self.items) > index + number, 'not enough items in queue'
+
+        self.items = [*self.items[:index], *self.items[index+number:]]
+
+    def append(self, item: Any) -> None:
+        """Append to the list, kicking out oldest if necessary."""
+        self.items.append(item)
+
+        if len(self.items) > self.size:
+            self.items = self.items[-self.size:]
+
+    def extend(self, items: list[Any]) -> None:
+        """Extend the list with items, kicking out oldest elements if necessary."""
+        assert type(items) in (list, tuple), 'items must be list or tuple'
+        self.items.extend(items)
+
+        if len(self.items) > self.size:
+            self.items = self.items[-self.size:]
